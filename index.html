@@ -6,10 +6,7 @@
 <title>Be My Valentine 💖</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: 'Comic Sans MS', cursive;
-}
+* { box-sizing: border-box; font-family: 'Comic Sans MS', cursive; }
 
 body {
   margin: 0;
@@ -19,6 +16,22 @@ body {
   align-items: center;
   min-height: 100vh;
   overflow: hidden;
+  position: relative;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  font-size: 24px;
+  color: #ff5c8a;
+  animation: floatUp linear infinite;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
 }
 
 .container {
@@ -30,11 +43,10 @@ body {
   text-align: center;
   box-shadow: 0 15px 40px rgba(0,0,0,0.2);
   animation: fadeIn 1s ease;
+  z-index: 1;
 }
 
-h1, h2 {
-  color: #d6336c;
-}
+h1,h2 { color: #d6336c; }
 
 .btns {
   margin-top: 30px;
@@ -51,23 +63,12 @@ button {
   transition: 0.2s;
 }
 
-.yes {
-  background: #ff5c8a;
-  color: white;
-}
+.yes { background: #ff5c8a; color: white; }
+.no { background: #ffc2d1; position: absolute; }
 
-.no {
-  background: #ffc2d1;
-  position: absolute;
-}
+button:hover { transform: scale(1.1); }
 
-button:hover {
-  transform: scale(1.1);
-}
-
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 .gifts {
   display: flex;
@@ -86,32 +87,13 @@ button:hover {
   animation: bounce 2s infinite;
 }
 
-.message {
-  margin-top: 20px;
-  font-size: 20px;
-  color: #c9184a;
-}
+.message { margin-top: 20px; font-size: 20px; color: #c9184a; }
 
-.rose {
-  font-size: 90px;
-  animation: float 3s infinite;
-}
+.rose { font-size: 90px; animation: float 3s infinite; }
 
-@keyframes fadeIn {
-  from {opacity:0; transform: translateY(20px);}
-  to {opacity:1;}
-}
-
-@keyframes bounce {
-  0%,100% {transform: translateY(0);}
-  50% {transform: translateY(-10px);}
-}
-
-@keyframes float {
-  0% {transform: translateY(0);}
-  50% {transform: translateY(-20px);}
-  100% {transform: translateY(0);}
-}
+@keyframes fadeIn { from {opacity:0; transform: translateY(20px);} to {opacity:1;} }
+@keyframes bounce { 0%,100% {transform: translateY(0);} 50% {transform: translateY(-10px);} }
+@keyframes float { 0% {transform: translateY(0);} 50% {transform: translateY(-20px);} 100% {transform: translateY(0);} }
 </style>
 </head>
 
@@ -121,6 +103,9 @@ button:hover {
 <audio id="music" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
+
+<!-- Floating hearts container -->
+<div id="hearts-container"></div>
 
 <div class="container" id="step1">
   <h1>💌 Hey there madam jii!</h1>
@@ -156,28 +141,29 @@ button:hover {
 <script>
 const noBtn = document.getElementById("noBtn");
 
+// NO button runs
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("click", moveNo);
-
 function moveNo() {
   const x = Math.random() * 200 - 100;
   const y = Math.random() * 80 - 40;
   noBtn.style.transform = `translate(${x}px, ${y}px)`;
 }
 
+// YES button
 function yesClicked() {
   document.getElementById("music").play();
   document.getElementById("step1").classList.add("hidden");
   document.getElementById("step2").classList.remove("hidden");
 }
 
+// Gifts logic
 function openGift(num) {
   const msg = document.getElementById("giftMsg");
   const messages = {
     1: "💖 You are my favorite person",
     2: "💞 I choose you every day",
     3: "❤️ You will forever be my only option"
-    4: "❤️ best decision of my life on- 12nov2024"
   };
   msg.innerText = messages[num];
 
@@ -188,6 +174,26 @@ function openGift(num) {
     }, 1500);
   }
 }
+
+// Floating hearts logic
+const heartsContainer = document.getElementById("hearts-container");
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = 16 + Math.random() * 24 + "px";
+  heart.style.animationDuration = 3 + Math.random() * 2 + "s";
+  heart.innerText = "❤️";
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
+
+// Create a heart every 300ms
+setInterval(createHeart, 300);
+
 </script>
 
 </body>
