@@ -3,121 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Be My Valentine 💖</title>
+<title>For Sugandha 💖</title>
 
 <style>
 * { box-sizing: border-box; font-family: 'Comic Sans MS', cursive; }
-  .photo {
-  width: 260px;
-  max-width: 90%;
-  border-radius: 20px;
-  margin-top: 20px;
-  box-shadow: 0 0 40px rgba(255, 105, 180, 0.8);
-  animation: fadeIn 1.5s ease;
-}
-
 
 body {
   margin: 0;
-  background: linear-gradient(135deg, #ffd6e8, #ffeef6);
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   overflow: hidden;
   position: relative;
+  color: white;
 }
 
 /* Floating background hearts */
-#hearts-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-
 .heart {
   position: absolute;
-  animation: floatUp linear forwards;
+  font-size: 20px;
+  animation: floatUp linear infinite;
+  opacity: 0.7;
 }
 
 @keyframes floatUp {
   0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-110vh); opacity: 0; }
+  100% { transform: translateY(-900px); opacity: 0; }
 }
 
+/* Main container */
 .container {
-  background: #ffe0ec;
-  width: 95%;
-  max-width: 800px;
+  background: rgba(255, 192, 203, 0.08);
+  backdrop-filter: blur(10px);
+  width: 90%;
+  max-width: 700px;
   border-radius: 25px;
   padding: 30px;
   text-align: center;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 0 40px rgba(255, 105, 180, 0.5);
   z-index: 2;
-  position: relative;
 }
 
-h1,h2 { color: #d6336c; }
-
-.btns {
-  margin-top: 30px;
-  position: relative;
-  height: 120px;
-}
+h1, h2 { color: #ff4da6; text-shadow: 0 0 20px #ff4da6; }
 
 button {
-  padding: 15px 30px;
-  border-radius: 30px;
+  padding: 12px 25px;
+  border-radius: 25px;
   border: none;
   font-size: 18px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s;
+  margin: 10px;
 }
 
-.yes { background: #ff5c8a; color: white; }
-.no { background: #ffc2d1; position: absolute; }
+.yes { background: #ff4da6; color: white; }
+.no { background: #444; color: white; }
 
 button:hover { transform: scale(1.1); }
 
 .hidden { display: none; }
 
+/* Gifts */
 .gifts {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 30px;
-  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .gift {
-  background: #ff8fab;
-  padding: 25px;
+  background: #ff4da6;
+  padding: 20px;
   border-radius: 20px;
-  width: 120px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.message { margin-top: 20px; font-size: 20px; color: #c9184a; }
+.gift:hover { transform: scale(1.1); }
 
-.finalText {
-  font-size: 20px;
-  margin-top: 15px;
-  color: #c9184a;
-}
-
+/* Final photo */
 .photo {
-  margin-top: 20px;
-  max-width: 280px;
-  width: 90%;
+  width: 260px;
+  max-width: 90%;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-  opacity: 0;
-  transition: opacity 1.5s ease;
+  margin-top: 20px;
+  box-shadow: 0 0 40px #ff4da6;
+  animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Heart burst animation */
+.burst {
+  position: absolute;
+  font-size: 22px;
+  animation: burstAnim 1s forwards;
+}
+
+@keyframes burstAnim {
+  to {
+    transform: translateY(-150px) scale(1.5);
+    opacity: 0;
+  }
 }
 </style>
 </head>
@@ -130,21 +122,17 @@ button:hover { transform: scale(1.1); }
 
 <div id="hearts-container"></div>
 
-<!-- STEP 1 -->
 <div class="container" id="step1">
-  <h1>💌 Hey there madam jii!</h1>
+  <h1>Hey Madam Ji 💌</h1>
   <h2>Will you be my Valentine Sugandha?</h2>
 
-  <div class="btns">
-    <button class="yes" onclick="yesClicked()">YES OF COURSE 💖</button>
-    <button class="no" id="noBtn">NO THANK YOU</button>
-  </div>
+  <button class="yes" onclick="yesClicked()">YES 💖</button>
+  <button class="no" id="noBtn">NO</button>
 </div>
 
-<!-- STEP 2 -->
 <div class="container hidden" id="step2">
-  <h1>Yay! You said yes! 💕</h1>
-  <p>I made these gifts for you 🎁</p>
+  <h1>You said YES 😌💖</h1>
+  <p>Choose your gift 🎁</p>
 
   <div class="gifts">
     <div class="gift" onclick="openGift(1)">Gift 1</div>
@@ -152,112 +140,83 @@ button:hover { transform: scale(1.1); }
     <div class="gift" onclick="openGift(3)">Gift 3</div>
   </div>
 
-  <div class="message" id="giftMsg"></div>
+  <div id="giftMsg" style="margin-top:20px;"></div>
 </div>
 
-<!-- STEP 3 -->
 <div class="container hidden" id="step3">
   <h1>Forever Yours ❤️</h1>
-  <div class="finalText" id="finalMessage"></div>
-  <img src="photo.jpg" class="photo" id="finalPhoto">
-  <img src="sswddf.jpeg" class="photo">
+  <p>You are my everything</p>
+  <p>I will always love you</p>
 
+  <!-- IMPORTANT: your image -->
+  <img src="sswddf.jpeg" class="photo">
 </div>
 
 <script>
-
-/* NO button shrinks every time */
 let noScale = 1;
 const noBtn = document.getElementById("noBtn");
 
-noBtn.addEventListener("mouseenter", function() {
-  const x = Math.random() * 200 - 100;
-  const y = Math.random() * 80 - 40;
+// NO button shrinks
+noBtn.addEventListener("click", () => {
   noScale -= 0.1;
-  if (noScale < 0.3) noScale = 0.3;
-  noBtn.style.transform = `translate(${x}px, ${y}px) scale(${noScale})`;
+  if(noScale > 0.3){
+    noBtn.style.transform = "scale(" + noScale + ")";
+  }
 });
 
-/* YES button */
+// YES button
 function yesClicked() {
   document.getElementById("music").play();
   document.getElementById("step1").classList.add("hidden");
   document.getElementById("step2").classList.remove("hidden");
 }
 
-/* Gift logic */
+// Gift logic
 function openGift(num) {
   const msg = document.getElementById("giftMsg");
 
-  if (num === 1 || num === 2) {
-    msg.innerText = num === 1 
-      ? "💖 You are my favorite person"
-      : "💞 I choose you every day";
+  if(num === 1){
+    msg.innerHTML = "💖 You are my favorite person";
     heartBurst();
   }
-
-  if (num === 3) {
-    msg.innerText = "❤️ Opening your final surprise...";
+  else if(num === 2){
+    msg.innerHTML = "💞 I choose you every day";
+    heartBurst();
+  }
+  else if(num === 3){
+    msg.innerHTML = "";
     setTimeout(() => {
       document.getElementById("step2").classList.add("hidden");
       document.getElementById("step3").classList.remove("hidden");
-      typeMessage("You are the best part of my life. Life feels brighter with you in it. I will always choose you. 💕");
-    }, 1500);
+    }, 800);
   }
 }
 
-/* Typing effect + show photo */
-function typeMessage(text) {
-  const el = document.getElementById("finalMessage");
-  const photo = document.getElementById("finalPhoto");
-  el.innerHTML = "";
-  let i = 0;
-
-  function typing() {
-    if (i < text.length) {
-      el.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(typing, 40);
-    } else {
-      photo.style.opacity = "1";
-    }
+// Heart burst
+function heartBurst(){
+  for(let i=0;i<15;i++){
+    const heart = document.createElement("div");
+    heart.className = "burst";
+    heart.innerHTML = "❤️";
+    heart.style.left = (window.innerWidth/2 + Math.random()*100-50) + "px";
+    heart.style.top = (window.innerHeight/2) + "px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),1000);
   }
-  typing();
 }
 
-/* Floating background hearts */
-const heartsContainer = document.getElementById("hearts-container");
-
+// Floating background hearts
 function createHeart() {
   const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.bottom = "-20px";
-  heart.style.fontSize = (16 + Math.random() * 20) + "px";
-  heart.style.animationDuration = (4 + Math.random() * 3) + "s";
-  heartsContainer.appendChild(heart);
-  setTimeout(() => heart.remove(), 7000);
+  heart.classList.add("heart");
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = 14 + Math.random() * 20 + "px";
+  heart.style.animationDuration = 4 + Math.random() * 2 + "s";
+  heart.innerHTML = "💗";
+  document.getElementById("hearts-container").appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
 }
-
-setInterval(createHeart, 300);
-
-/* Heart burst animation */
-function heartBurst() {
-  for (let i = 0; i < 25; i++) {
-    const heart = document.createElement("div");
-    heart.innerHTML = "💖";
-    heart.style.position = "absolute";
-    heart.style.left = "50%";
-    heart.style.top = "50%";
-    heart.style.fontSize = "20px";
-    heart.style.transform = `translate(${Math.random()*300-150}px, ${Math.random()*300-150}px)`;
-    heart.style.animation = "floatUp 2s forwards";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 2000);
-  }
-}
-
+setInterval(createHeart,300);
 </script>
 
 </body>
