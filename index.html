@@ -10,7 +10,7 @@
 
 body {
   margin: 0;
-  background: black;
+  background: radial-gradient(circle at top, #1a001a, black);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,21 +83,6 @@ button:hover { transform: scale(1.1); }
 
 .gift:hover { transform: scale(1.1); }
 
-/* Final photo */
-.photo {
-  width: 260px;
-  max-width: 90%;
-  border-radius: 20px;
-  margin-top: 20px;
-  box-shadow: 0 0 40px #ff4da6;
-  animation: fadeIn 2s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
-}
-
 /* Heart burst animation */
 .burst {
   position: absolute;
@@ -111,6 +96,14 @@ button:hover { transform: scale(1.1); }
     opacity: 0;
   }
 }
+
+/* Final text glow */
+#step3 p {
+  line-height: 1.7;
+  margin-top: 15px;
+  font-size: 16px;
+  text-shadow: 0 0 8px rgba(255, 77, 166, 0.6);
+}
 </style>
 </head>
 
@@ -122,6 +115,7 @@ button:hover { transform: scale(1.1); }
 
 <div id="hearts-container"></div>
 
+<!-- STEP 1 -->
 <div class="container" id="step1">
   <h1>Hey Madam Ji 💌</h1>
   <h2>Will you be my Valentine Sugandha?</h2>
@@ -130,6 +124,7 @@ button:hover { transform: scale(1.1); }
   <button class="no" id="noBtn">NO</button>
 </div>
 
+<!-- STEP 2 -->
 <div class="container hidden" id="step2">
   <h1>You said YES 😌💖</h1>
   <p>Choose your gift 🎁</p>
@@ -143,16 +138,14 @@ button:hover { transform: scale(1.1); }
   <div id="giftMsg" style="margin-top:20px;"></div>
 </div>
 
+<!-- STEP 3 -->
 <div class="container hidden" id="step3">
   <h1>Forever Yours ❤️</h1>
-  <p>You are my everything</p>
-  <p>I will always love you</p>
-
-  <!-- IMPORTANT: your image -->
-  <img src="sswddf.jpeg" class="photo">
+  <p id="loveMessage"></p>
 </div>
 
 <script>
+
 let noScale = 1;
 const noBtn = document.getElementById("noBtn");
 
@@ -188,6 +181,7 @@ function openGift(num) {
     setTimeout(() => {
       document.getElementById("step2").classList.add("hidden");
       document.getElementById("step3").classList.remove("hidden");
+      typeMessage();
     }, 800);
   }
 }
@@ -217,6 +211,34 @@ function createHeart() {
   setTimeout(()=>heart.remove(),6000);
 }
 setInterval(createHeart,300);
+
+// Typing animation
+const fullText = `Sugandha, it’s been 1.3 years with you, and honestly, it still feels special every single day.
+
+Since 12 November 2024, my life has changed in the best way because of you.
+
+You’re not just beautiful, you’re so caring and kind, and the way you love me makes me feel really lucky.
+
+The way you understand my mood, support me, and stay with me even when I’m not at my best means everything to me.
+
+Talking to you makes my day better, and your smile is still my favorite thing.
+
+Being with you feels natural and safe, like home.
+
+I’m really thankful that you’re in my life, and I promise I’ll always respect you, stand by you, and try my best to make you as happy as you make me.
+
+I love you, Sugandha ❤️`;
+
+let index = 0;
+
+function typeMessage() {
+  if (index < fullText.length) {
+    document.getElementById("loveMessage").innerHTML += fullText.charAt(index);
+    index++;
+    setTimeout(typeMessage, 35);
+  }
+}
+
 </script>
 
 </body>
